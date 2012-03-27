@@ -1,5 +1,8 @@
 package ZeroSyntaxHighlighter;
 
+import ZeroSyntaxHighlighter.Globals.StyleType;
+import ZeroSyntaxHighlighter.Globals.SyntaxColors;
+import ZeroSyntaxHighlighter.Globals.SyntaxPatterns;
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public final class SyntaxBox extends JTextPane {
     public SyntaxBox() {
         m_styleContext = new StyleContext();
         m_doc = new DefaultStyledDocument();
+        m_patternHandler = new SyntaxPatternHandler(m_styleContext, m_doc);
         
         Style defaultStyle = m_styleContext.getStyle(StyleContext.DEFAULT_STYLE);
         m_default = m_styleContext.addStyle("MainStyle", defaultStyle);
@@ -59,11 +63,10 @@ public final class SyntaxBox extends JTextPane {
     }
     
     public void addSyntaxHandlers() {
-        SyntaxPatternHandler h = new SyntaxPatternHandler(m_styleContext, m_doc);
-        h.addStyle("", SyntaxColors.DEFAULT, 3);
-        h.addStyle(new ReservedTokens().getKeyWords(), SyntaxColors.DEFAULT, 1);
-        h.addStyle(SyntaxPatterns.SINGLE_DOUBLE_STRING, SyntaxColors.STRING, 2);
-        h.addStyle(SyntaxPatterns.COMMENT_TO_EOL, SyntaxColors.COMMENT, 1);
-        h.addStyle(SyntaxPatterns.COMMENT_TO_END_TOKEN, SyntaxColors.COMMENT, 1);
+        m_patternHandler.addStyle("", SyntaxColors.DEFAULT, StyleType.IGNORE_REGEX);
+        m_patternHandler.addStyle(new ReservedTokens().getKeyWords(), SyntaxColors.KEYWORD, StyleType.DEFAULT);
+        m_patternHandler.addStyle(SyntaxPatterns.SINGLE_DOUBLE_STRING, SyntaxColors.STRING, StyleType.QUOTES);
+        m_patternHandler.addStyle(SyntaxPatterns.COMMENT_TO_EOL, SyntaxColors.COMMENT, StyleType.DEFAULT);
+        m_patternHandler.addStyle(SyntaxPatterns.COMMENT_TO_END_TOKEN, SyntaxColors.COMMENT, StyleType.DEFAULT);
     }
 }
