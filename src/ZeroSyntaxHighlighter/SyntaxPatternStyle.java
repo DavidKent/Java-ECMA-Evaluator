@@ -14,12 +14,14 @@ import javax.swing.text.*;
  * @author Zerotension
  */
 public class SyntaxPatternStyle {
+
     private StyleContext m_sc;
     private DefaultStyledDocument m_doc;
     private Style m_newStyle;
     private String m_pattern;
     private int m_type;
     private static int STYLES_CREATED = 0;
+
     public SyntaxPatternStyle(StyleContext sc, DefaultStyledDocument doc, String pattern, Color color, int type) {
         m_sc = sc;
         m_doc = doc;
@@ -29,14 +31,15 @@ public class SyntaxPatternStyle {
         StyleConstants.setForeground(m_newStyle, color);
         STYLES_CREATED++;
     }
+
     public void applyEffect() throws BadLocationException {
-       if(m_type == 3) {
-           m_doc.setCharacterAttributes(0, m_doc.getLength(), m_newStyle, true);
-           return;
-       }
-       Pattern p = Pattern.compile(m_pattern);
-       Matcher m = p.matcher(m_doc.getText(0, m_doc.getLength()));
-       while(m.find()){
+        if (m_type == 3) {
+            m_doc.setCharacterAttributes(0, m_doc.getLength(), m_newStyle, true);
+            return;
+        }
+        Pattern p = Pattern.compile(m_pattern);
+        Matcher m = p.matcher(m_doc.getText(0, m_doc.getLength()));
+        while (m.find()) {
             m_doc.setCharacterAttributes(m.start(), m.end() - m.start(), m_newStyle, true);
         }
     }

@@ -1,14 +1,18 @@
 package ZeroSyntaxHighlighter;
 
+import ZeroJSEngine.EvaluatorEngine;
 import ZeroSyntaxHighlighter.Globals.StyleType;
 import ZeroSyntaxHighlighter.Globals.SyntaxColors;
 import ZeroSyntaxHighlighter.Globals.SyntaxPatterns;
-import java.awt.Color;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
+import ZeroVal.MainForm;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.script.ScriptException;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.text.*;
 
@@ -58,8 +62,22 @@ public final class SyntaxBox extends JTextPane {
         });
     }
     
-    public void doOnKeyReleased(KeyEvent e) throws BadLocationException {
+    public void setHighlightText(String text) throws BadLocationException {
+        this.setText(text);
         m_patternHandler.renderSyntaxHighlighting();
+    }
+    
+    public void doOnKeyReleased(KeyEvent e) throws BadLocationException {
+        if(e.getKeyCode() == 10 && e.isAltDown()) {
+            evaluateSyntaxBox();
+            return;
+        }
+        m_patternHandler.renderSyntaxHighlighting();
+        int length = this.getText().length();
+        int headerSize = length > 50 ? 50 : length;
+        if(this.getCaretPosition() <= 50) {
+            sendTitleChange(this.getText(0, headerSize));
+        }
     }
     
     public void addSyntaxHandlers() {
@@ -68,5 +86,41 @@ public final class SyntaxBox extends JTextPane {
         m_patternHandler.addStyle(SyntaxPatterns.SINGLE_DOUBLE_STRING, SyntaxColors.STRING, StyleType.QUOTES);
         m_patternHandler.addStyle(SyntaxPatterns.COMMENT_TO_EOL, SyntaxColors.COMMENT, StyleType.DEFAULT);
         m_patternHandler.addStyle(SyntaxPatterns.COMMENT_TO_END_TOKEN, SyntaxColors.COMMENT, StyleType.DEFAULT);
+    }
+    
+    public void evaluateSyntaxBox() {
+        try {
+            String text = this.getText();
+            String eval = EvaluatorEngine.Evaluate(text);
+            try {
+                this.setHighlightText(text + "\n//Output: " + eval);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ScriptException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void sendTitleChange(String input) {
+        try {
+            JTabbedPane p = (JTabbedPane) this.getParent();
+            
+            p.setTitleAt(p.getSelectedIndex(), getTitle(input));
+        } catch(Exception e) {
+        
+        }
+    }
+    
+    private String getTitle(String input) {
+        String pattern = "\\/\\/([^\\n\\r]*)";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(input);
+        String title = "";
+        while(m.find()) {
+            title = m.group(1);
+            break;
+        }
+        return title;
     }
 }

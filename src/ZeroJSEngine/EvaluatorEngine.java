@@ -16,6 +16,6 @@ public class EvaluatorEngine {
     public static String Evaluate(String s) throws ScriptException {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        return (String) engine.eval(s);
+        return engine.eval(s) + "";
     }
 }

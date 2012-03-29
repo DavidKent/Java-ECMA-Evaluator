@@ -16,7 +16,7 @@ import javax.swing.text.StyleContext;
  * @author Zerotension
  */
 public class SyntaxPatternHandler {
-    List<SyntaxPatternStyle> m_patternStyles = new ArrayList<SyntaxPatternStyle>();
+    List<SyntaxPatternStyle> m_patternStyles = new ArrayList<>();
     private StyleContext m_sc;
     private DefaultStyledDocument m_doc;
     
