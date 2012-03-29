@@ -4,9 +4,14 @@ import ZeroJSEngine.EvaluatorEngine;
 import ZeroSyntaxHighlighter.Globals.StyleType;
 import ZeroSyntaxHighlighter.Globals.SyntaxColors;
 import ZeroSyntaxHighlighter.Globals.SyntaxPatterns;
+import ZeroVal.Base;
+import ZeroVal.IO;
 import ZeroVal.MainForm;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -70,6 +75,11 @@ public final class SyntaxBox extends JTextPane {
     public void doOnKeyReleased(KeyEvent e) throws BadLocationException {
         if(e.getKeyCode() == 10 && e.isAltDown()) {
             evaluateSyntaxBox();
+            try {
+                IO.saveFile(Base.form.getTabbedPane());
+            } catch (IOException ex) {
+                Logger.getLogger(SyntaxBox.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return;
         }
         m_patternHandler.renderSyntaxHighlighting();

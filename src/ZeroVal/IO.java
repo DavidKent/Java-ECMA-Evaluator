@@ -8,7 +8,9 @@ package ZeroVal;
 import ZeroSyntaxHighlighter.SyntaxBox;
 import java.io.*;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JTabbedPane;
 import javax.swing.text.BadLocationException;
@@ -70,10 +72,16 @@ public class IO {
             out.write(tabList.get(i).toString());
         }
         out.close();
+        SimpleDateFormat dateFormatLocal = new SimpleDateFormat("h:mm:ss");
+        IO.setStatus("Saved file at " + dateFormatLocal.format(new Date()) + ".");
     }
     
     private static String getPath() throws UnsupportedEncodingException {
          String path = System.getProperty("user.dir") + "\\properties.file";
         return URLDecoder.decode(path, "UTF-8");
+    }
+    
+    public static void setStatus(String status) {
+        Base.form.getStatusLabel().setText(status);
     }
 }
