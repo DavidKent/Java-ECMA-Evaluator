@@ -1,4 +1,85 @@
-<tab name="test">
-//test
-//Output: null<tab name="New Tab">
-//New Tab
+<tab name="Note">
+//Note
+
+Is there any method available to insert a character at a specific position in a string?
+
+For example:
+
+st = "abde" <------ Original string
+st= "abCde" <------ Add "C" in position 2 
+
+    public void keyReleased(KeyEvent e) {
+                try {
+                    doOnKeyReleased(e);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(SyntaxBox.class.getName()).log(Level.SEVERE, null, ex);
+                }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tab name="New Test">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tab name="New Jest">
+//New Jest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tab name="Bogart">
+//Bogart
+
+4+4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
