@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 
-package ZeroVal;
+package IO;
 
 import ZeroSyntaxHighlighter.SyntaxBox;
+import Main.ZeroVal;
 import java.io.*;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.text.BadLocationException;
 
 /**
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class IO {
     public static boolean loadFile(JTabbedPane p) throws FileNotFoundException, UnsupportedEncodingException, IOException, BadLocationException {
@@ -82,6 +83,6 @@ public class IO {
     }
     
     public static void setStatus(String status) {
-        Base.m_form.getStatusLabel().setText(status);
+        ZeroVal.m_form.setTitle(status);
     }
 }

@@ -2,18 +2,21 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ZeroVal;
+package Main;
 
+import IO.IO;
 import ZeroSyntaxHighlighter.SyntaxBox;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class MainForm extends javax.swing.JFrame {
 
@@ -22,6 +25,9 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        //scroll bar sync
+        tabScroll.getVerticalScrollBar().setModel(lineBoxScroll.getVerticalScrollBar().getModel());
+        lineBoxScroll.getVerticalScrollBar().setPreferredSize (new Dimension(0,0));
     }
 
     /**
@@ -33,32 +39,32 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPopupMenu2 = new javax.swing.JPopupMenu();
+        tabScroll = new javax.swing.JScrollPane();
         tabPane = new javax.swing.JTabbedPane();
-        StatusLabel = new javax.swing.JLabel();
+        lineBoxScroll = new javax.swing.JScrollPane();
+        lineBox = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jScrollPane3.setViewportView(jEditorPane1);
-
-        jPopupMenu2.setComponentPopupMenu(jPopupMenu2);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(40, 40, 500, 500));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(500, 500));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+        });
+
+        tabScroll.setBorder(null);
+        tabScroll.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                tabScrollMouseWheelMoved(evt);
             }
         });
 
@@ -74,6 +80,22 @@ public class MainForm extends javax.swing.JFrame {
                 tabPaneInputMethodTextChanged(evt);
             }
         });
+        tabScroll.setViewportView(tabPane);
+
+        lineBox.setBackground(new java.awt.Color(204, 204, 204));
+        lineBox.setColumns(1);
+        lineBox.setEditable(false);
+        lineBox.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        lineBox.setRows(5);
+        lineBox.setAutoscrolls(false);
+        lineBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lineBox.setFocusable(false);
+        lineBox.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                lineBoxMouseWheelMoved(evt);
+            }
+        });
+        lineBoxScroll.setViewportView(lineBox);
 
         jMenu1.setText("File");
 
@@ -106,21 +128,19 @@ public class MainForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(StatusLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addComponent(lineBoxScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 957, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(StatusLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tabScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lineBoxScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -129,6 +149,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void tabPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabPaneStateChanged
         int index = tabPane.getSelectedIndex();
+        lineBox.setText("");
         if("+".equals(tabPane.getTitleAt(index))) {
             tabPane.setSelectedIndex(index - 1);
             SyntaxBox b = new SyntaxBox();
@@ -139,11 +160,9 @@ public class MainForm extends javax.swing.JFrame {
             }
             tabPane.insertTab("New Tab", null, b, "Blank Tab", index);
         }
-        try {
-            if(!Base.canSave) return;
-            IO.saveFile(Base.m_form.getTabbedPane());
-        } catch (IOException ex) {
-            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        int lines = ((JTextPane)tabPane.getSelectedComponent()).getText().split("\n").length;
+        for(int i = 0; i < lines; i++) {
+           lineBox.setText(lineBox.getText() + " "+ i +"\n");
         }
     }//GEN-LAST:event_tabPaneStateChanged
 
@@ -181,11 +200,19 @@ public class MainForm extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            IO.saveFile(Base.m_form.getTabbedPane());
+            IO.saveFile(ZeroVal.m_form.getTabbedPane());
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void lineBoxMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_lineBoxMouseWheelMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lineBoxMouseWheelMoved
+
+    private void tabScrollMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_tabScrollMouseWheelMoved
+        
+    }//GEN-LAST:event_tabScrollMouseWheelMoved
 
     /**
      * @param args the command line arguments
@@ -233,22 +260,18 @@ public class MainForm extends javax.swing.JFrame {
     public javax.swing.JTabbedPane getTabbedPane() {
         return tabPane;
     }
-    public javax.swing.JLabel getStatusLabel() {
-        return StatusLabel;
+    public javax.swing.JTextArea getLineBox() {
+        return lineBox;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel StatusLabel;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JPopupMenu jPopupMenu2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea lineBox;
+    private javax.swing.JScrollPane lineBoxScroll;
     private javax.swing.JTabbedPane tabPane;
+    private javax.swing.JScrollPane tabScroll;
     // End of variables declaration//GEN-END:variables
 }

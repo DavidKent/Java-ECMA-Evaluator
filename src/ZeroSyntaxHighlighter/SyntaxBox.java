@@ -4,9 +4,9 @@ import ZeroJSEngine.EvaluatorEngine;
 import ZeroSyntaxHighlighter.Globals.StyleType;
 import ZeroSyntaxHighlighter.Globals.SyntaxColors;
 import ZeroSyntaxHighlighter.Globals.SyntaxPatterns;
-import ZeroVal.Base;
-import ZeroVal.IO;
-import ZeroVal.MainForm;
+import Main.ZeroVal;
+import IO.IO;
+import Main.MainForm;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import javax.swing.text.*;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public final class SyntaxBox extends JTextPane {
     private StyleContext m_styleContext;
@@ -55,6 +55,7 @@ public final class SyntaxBox extends JTextPane {
         
         addSyntaxHandlers();
         final SyntaxBox self = this;
+        
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -89,16 +90,20 @@ public final class SyntaxBox extends JTextPane {
         if(e.getKeyCode() == 10 && e.isAltDown()) {
             evaluateSyntaxBox();
             try {
-                IO.saveFile(Base.m_form.getTabbedPane());
+                IO.saveFile(ZeroVal.m_form.getTabbedPane());
             } catch (IOException ex) {
                 Logger.getLogger(SyntaxBox.class.getName()).log(Level.SEVERE, null, ex);
             }
             return;
         }
-        if(!Base.canSave) Base.canSave = true;
-        if(e.getKeyCode() == 9) {
-            
+        else if(e.getKeyCode() == 10 || e.getKeyCode() == 86 || e.getKeyCode() >= 37 && e.getKeyCode() <= 40 || e.getKeyCode() == 8) {
+            ZeroVal.m_form.getLineBox().setText("");
+            int lines = ((JTextPane)ZeroVal.m_form.getTabbedPane().getSelectedComponent()).getText().split("\n").length;
+            for(int i = 0; i < lines; i++) {
+                 ZeroVal.m_form.getLineBox().setText(ZeroVal.m_form.getLineBox().getText() + " "+ i +"\n");
+            }
         }
+        if(!ZeroVal.canSave) ZeroVal.canSave = true;
         int length = this.getText().length();
         int headerSize = length > 50 ? 50 : length;
         if(this.getCaretPosition() <= 50) {

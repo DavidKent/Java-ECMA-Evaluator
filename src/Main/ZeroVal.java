@@ -2,7 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ZeroVal;
+package Main;
+import IO.IO;
 import ZeroSyntaxHighlighter.SyntaxBox;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
@@ -16,9 +17,9 @@ import javax.swing.text.BadLocationException;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
-public class Base {
+public class ZeroVal {
 
     /**
      * @param args the command line arguments
@@ -30,7 +31,7 @@ public class Base {
         m_form = new MainForm();
         m_form.setVisible(true);
         JTabbedPane j = m_form.getTabbedPane();
-       
+        m_form.setTitle("ZeroVal");
         if(!IO.loadFile(j)) {
             IO.setStatus("Welcome to ZeroVal.");
             SyntaxBox b = new SyntaxBox();
@@ -46,7 +47,7 @@ public class Base {
                 try {
                     ((SyntaxBox) m_form.getTabbedPane().getSelectedComponent()).getPatternHandler().renderSyntaxHighlighting();
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ZeroVal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
