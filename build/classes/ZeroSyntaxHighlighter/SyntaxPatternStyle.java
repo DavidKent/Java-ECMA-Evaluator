@@ -11,7 +11,7 @@ import javax.swing.text.*;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class SyntaxPatternStyle {
 

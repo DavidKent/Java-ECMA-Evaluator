@@ -13,7 +13,7 @@ import javax.swing.text.StyleContext;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class SyntaxPatternHandler {
     List<SyntaxPatternStyle> m_patternStyles = new ArrayList<>();

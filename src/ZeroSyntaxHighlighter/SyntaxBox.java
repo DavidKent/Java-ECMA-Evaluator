@@ -97,11 +97,7 @@ public final class SyntaxBox extends JTextPane {
             return;
         }
         else if(e.getKeyCode() == 10 || e.getKeyCode() == 86 || e.getKeyCode() >= 37 && e.getKeyCode() <= 40 || e.getKeyCode() == 8) {
-            ZeroVal.m_form.getLineBox().setText("");
-            int lines = ((JTextPane)ZeroVal.m_form.getTabbedPane().getSelectedComponent()).getText().split("\n").length;
-            for(int i = 0; i < lines; i++) {
-                 ZeroVal.m_form.getLineBox().setText(ZeroVal.m_form.getLineBox().getText() + " "+ i +"\n");
-            }
+            ZeroVal.setLineNums();
         }
         if(!ZeroVal.canSave) ZeroVal.canSave = true;
         int length = this.getText().length();

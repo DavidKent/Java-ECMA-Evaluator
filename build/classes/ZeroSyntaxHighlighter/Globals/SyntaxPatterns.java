@@ -6,7 +6,7 @@ package ZeroSyntaxHighlighter.Globals;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class SyntaxPatterns {
     public static final String SINGLE_DOUBLE_STRING = "[\\\"\\'][^\\\"\\']*[\\\"\\']";

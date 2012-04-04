@@ -6,7 +6,7 @@ package ZeroSyntaxHighlighter.Globals;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class StyleType {
     public static final int IGNORE_REGEX = 3;

@@ -6,7 +6,7 @@ package ZeroSyntaxHighlighter.Globals;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class SyntaxColors {
     public static final String DEFAULT = "0x000000";

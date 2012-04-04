@@ -14,7 +14,33 @@ st= "abCde" <------ Add "C" in position 2
                 } catch (BadLocationException ex) {
 }
 
+Is there any method available to insert a character at a specific position in a string?
+
+For example:
+
+st = "abde" <------ Original string
+st= "abCde" <------ Add "C" in position 2 
+
+    public void keyReleased(KeyEvent e) {
+                try {
+                    doOnKeyReleased(e);
+                } catch (BadLocationException ex) {
+}
+Is there any method available to insert a character at a specific position in a string?
+
+For example:
+
+st = "abde" <------ Original string
+st= "abCde" <------ Add "C" in position 2 
+
+    public void keyReleased(KeyEvent e) {
+                try {
+                    doOnKeyReleased(e);
+                } catch (BadLocationException ex) {
+}
+
 <tab name="New Test">
+
 
 
 
@@ -225,10 +251,12 @@ st= "abCde" <------ Add "C" in position 2
 
 
 
+
 <tab name="Bogart">
 //Bogart
 
 4+4
+
 
 
 

@@ -10,7 +10,7 @@ import javax.script.ScriptException;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class EvaluatorEngine {
     public static String Evaluate(String s) throws ScriptException {

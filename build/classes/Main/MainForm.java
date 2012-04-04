@@ -149,6 +149,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void tabPaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabPaneStateChanged
         int index = tabPane.getSelectedIndex();
+        lineBox.setText("");
         if("+".equals(tabPane.getTitleAt(index))) {
             tabPane.setSelectedIndex(index - 1);
             SyntaxBox b = new SyntaxBox();
@@ -159,7 +160,10 @@ public class MainForm extends javax.swing.JFrame {
             }
             tabPane.insertTab("New Tab", null, b, "Blank Tab", index);
         }
-        ZeroVal.setLineNums();
+        int lines = ((JTextPane)tabPane.getSelectedComponent()).getText().split("\n").length;
+        for(int i = 0; i < lines; i++) {
+           lineBox.setText(lineBox.getText() + " "+ i +"\n");
+        }
     }//GEN-LAST:event_tabPaneStateChanged
 
     private void tabPaneInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tabPaneInputMethodTextChanged

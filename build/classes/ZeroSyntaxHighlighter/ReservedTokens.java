@@ -6,7 +6,7 @@ package ZeroSyntaxHighlighter;
 
 /**
  *
- * @author Zerotension
+ * @author David Dolyniuk
  */
 public class ReservedTokens {
     public String getKeyWords(){ 

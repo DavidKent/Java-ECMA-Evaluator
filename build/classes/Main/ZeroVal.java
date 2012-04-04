@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextPane;
 import javax.swing.Timer;
 import javax.swing.text.BadLocationException;
 
@@ -54,12 +53,5 @@ public class ZeroVal {
         });
         m_timer.start();
         j.insertTab("+", null, null, "Create New Tab", j.getTabCount());
-    }
-    public static void setLineNums() {
-        m_form.getLineBox().setText("");
-        int lines = ((JTextPane)m_form.getTabbedPane().getSelectedComponent()).getText().split("\n").length;
-        for(int i = 1; i < lines + 1; i++) {
-           m_form.getLineBox().setText(m_form.getLineBox().getText() + " "+ i +"\n");
-        }
     }
 }
