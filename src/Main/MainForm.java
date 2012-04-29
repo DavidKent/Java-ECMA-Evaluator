@@ -82,7 +82,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         tabScroll.setViewportView(tabPane);
 
-        lineBox.setBackground(new java.awt.Color(204, 204, 204));
+        lineBox.setBackground(new java.awt.Color(223, 223, 225));
         lineBox.setColumns(1);
         lineBox.setEditable(false);
         lineBox.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
